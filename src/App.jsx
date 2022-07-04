@@ -1,45 +1,37 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { useState } from "react";
+import { marked } from "marked";
+import "./App.css";
+
+marked.setOptions({
+  breaks: true,
+});
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [text, setText] = useState("");
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setText(value);
+  };
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+      <header>Markdown Previewer</header>
+      <div className="App-body">
+        <textarea
+          id="editor"
+          cols="80"
+          rows="10"
+          value={text}
+          onChange={handleChange}
+        ></textarea>
+        <div
+          id="preview"
+          dangerouslySetInnerHTML={{ __html: marked.parse(text) }}
+        ></div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
