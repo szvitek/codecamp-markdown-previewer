@@ -4,5 +4,6 @@ import mdPlugin  from 'vite-plugin-markdown';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), mdPlugin()]
+  plugins: [react(), mdPlugin()],
+  base: "/codecamp-markdown-previewer/"
 })
